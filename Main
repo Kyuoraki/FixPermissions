@@ -1,0 +1,14 @@
+$array = @(Get-ADComputer -Filter 'Name -like "*MS-W*" -or Name -like "*MS-RD*"' -Properties * `
+| Sort CN | Select-Object -ExpandProperty CN) #get arraylist of pc & terminal
+
+#function run_sh {
+    #cd 'C:\Program Files\OpenSSH/'
+    #powershell.exe .\FixHostFilePermissions.ps1
+    #powershell.exe .\FixUserFilePermissions.ps1
+   # Invoke-Command -ComputerName $array -ScriptBlock {$env:computername} }
+$parameters = @{
+  ComputerName      = $array
+  ScriptBlock = { $env:computername }
+}
+Invoke-Command @parameters
+ForEach-Object -InputObject $array -Process {run_sh}
