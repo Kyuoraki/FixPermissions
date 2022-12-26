@@ -1,0 +1,9 @@
+Get-ADComputer -Filter{
+OperatingSystem -like '*Server*'
+    -and Name -notlike '*MS-DB*'
+    -and Name -notlike '*MS-CS*'
+    -and Name -notlike '*MS-AP02*'
+    -and Name -notlike '*MS-AP03*'
+} -Properties * |%{if(Test-Connection $_.Name -Count 2 -Quiet){
+Write-Host $_.Name '- доступен' -f DarkGreen}
+else{Write-Host $_.Name '- не доступен!' -f Red}}
