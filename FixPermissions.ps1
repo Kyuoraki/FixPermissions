@@ -12,7 +12,7 @@ ForEach -Parallel ($computer in  $hostsList) {
     $availabilityCheck = Get-CimInstance -ClassName Win32_PingStatus -Filter $Filter #check online/ping
     if ( ($availabilityCheck.StatusCode) -eq 0 ) {
     Parallel{
-        ssh n.bobrov@$computer -p 33 powershell.exe -command "hostname;powershell -file 'C:\Program Files\OpenSSH\FixHostFilePermissions.ps1';powershell -file 'C:\Program Files\OpenSSH\FixUserFilePermissions.ps1'" | Out-File "C:\Fix\log.txt" -Force -Append    
+        ssh username@$computer -p 33 powershell.exe -command "hostname;powershell -file 'C:\Program Files\OpenSSH\FixHostFilePermissions.ps1';powershell -file 'C:\Program Files\OpenSSH\FixUserFilePermissions.ps1'" | Out-File "C:\Fix\log.txt" -Force -Append    
     }#else{$foreach.MoveNext() | Out-Null}
 }
 }
