@@ -1,4 +1,4 @@
-$hostUsersSIDs = Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\S-1-5-21-574784187-2233042446-2247385851-*' -Name #получение (AD) сидов из реестра 
+$hostUsersSIDs = Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\S-1-5-21-*' -Name #получение (AD) сидов из реестра 
 $excludeList="" # здесь должны быть сиды для исключения из списка
 foreach ($item in $excludeList) { 
     $hostUsersSIDs = $hostUsersSIDs.Where{$_ -ne $item}} # исключение сидов из списка
